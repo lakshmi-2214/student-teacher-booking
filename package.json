@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "Student Teacher Booking System",
   "scripts": {
-    "build": "mkdir -p dist && cp -r *.html assets dist/",
-    "test": "echo \"No tests specified\" && exit 0"
+    "build": "mkdir -p dist && cp -r *.html assets dist/"
   },
   "dependencies": {
     "firebase": "^8.10.0"
