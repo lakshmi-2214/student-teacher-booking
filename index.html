@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student–Teacher Booking Appointment</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Student–Teacher Booking Appointment</h1>
+    <p>Book your appointments easily and stay connected.</p>
+  </header>
+
+  <main>
+    <div class="card-container">
+      <div class="card">
+        <h3>Student</h3>
+        <p>Search teachers and book appointments easily.</p>
+        <a href="login.html?role=student"><button>Login as Student</button></a>
+      </div>
+
+      <div class="card">
+        <h3>Teacher</h3>
+        <p>View and manage all your student appointments.</p>
+        <a href="login.html?role=teacher"><button>Login as Teacher</button></a>
+      </div>
+
+      <div class="card">
+        <h3>Admin</h3>
+        <p>Add, update, and manage teachers and students.</p>
+        <a href="admin.html"><button>Go to Admin Panel</button></a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 Student–Teacher Booking System | Powered by Firebase</p>
+  </footer>
+
+  <style>
+    header {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .card-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      width: 250px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    }
+
+    .card h3 {
+      color: #2c3e50;
+    }
+
+    .card button {
+      margin-top: 10px;
+      background-color: #3498db;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    footer {
+      margin-top: 50px;
+      text-align: center;
+      font-size: 14px;
+      color: #555;
+    }
+  </style>
+</body>
+</html>

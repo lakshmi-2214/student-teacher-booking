@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Register</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <div class="centered">
+    <div class="card">
+      <h2 id="registerTitle">Register</h2>
+      <p id="registerDesc">Create your account</p>
+
+      <form id="registerForm">
+        <input type="text" id="name" placeholder="Full Name" required>
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="password" id="password" placeholder="Password" required>
+
+        <!-- Hidden role field set by script -->
+        <input type="hidden" id="roleField" name="role" value="student">
+
+        <button type="submit">Register</button>
+      </form>
+
+      <p id="backToLogin" style="margin-top:12px;">
+        <a id="loginLink" href="login.html">Back to Login</a>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // Read role from URL e.g. register.html?role=teacher
+    const urlParams = new URLSearchParams(window.location.search);
+    const role = (urlParams.get("role") || "student").toLowerCase(); // default student
+    const registerTitle = document.getElementById("registerTitle");
+    const registerDesc = document.getElementById("registerDesc");
+    const roleField = document.getElementById("roleField");
+    const loginLink = document.getElementById("loginLink");
+
+    if (role === "teacher") {
+      registerTitle.textContent = "Register as Teacher";
+      registerDesc.textContent = "Create teacher account. Admin approval may be required.";
+    } else if (role === "admin") {
+      registerTitle.textContent = "Register as Admin";
+      registerDesc.textContent = "Admin registration — you may need special permissions.";
+    } else {
+      registerTitle.textContent = "Register as Student";
+      registerDesc.textContent = "Create student account to book appointments.";
+    }
+
+    roleField.value = role;
+
+    // Also pass the role back to login when user clicks "Back to Login"
+    loginLink.href = "login.html" + (role ? `?role=${role}` : "");
+  </script>
+
+  <!-- firebase libs + config + auth script -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  <script src="assets/js/firebase-config.js"></script>
+  <script src="assets/js/auth.js"></script>
+</body>
+</html>

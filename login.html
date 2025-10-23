@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Login - Student–Teacher Booking</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <main class="centered">
+    <div class="card">
+      <h2 id="roleTitle">Login</h2>
+      <p id="roleDesc">Please sign in to continue.</p>
+
+      <form id="loginForm">
+        <input type="email" id="loginEmail" placeholder="Email" required />
+        <input type="password" id="loginPassword" placeholder="Password" required />
+        <button type="submit">Login</button>
+      </form>
+
+      <p id="infoText">Don't have an account? <a id="registerLink" href="register.html">Register</a></p>
+
+      <p>
+        <a href="#" id="forgotLink">Forgot password?</a>
+      </p>
+
+      <div style="margin-top:12px; text-align:center;">
+        <a id="homeLink" href="index.html">← Back to Home</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Firebase v8 scripts (matches other pages) -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+  <!-- Your firebase config and auth helper -->
+  <script src="assets/js/firebase-config.js"></script>
+  <script src="assets/js/auth.js"></script>
+
+  <script>
+    // Detect role from URL and adjust text/links
+    const urlParams = new URLSearchParams(window.location.search);
+    const role = (urlParams.get("role") || "student").toLowerCase();
+
+    const roleTitle = document.getElementById("roleTitle");
+    const roleDesc = document.getElementById("roleDesc");
+    const registerLink = document.getElementById("registerLink");
+    const homeLink = document.getElementById("homeLink");
+
+    // Adjust labels dynamically
+    if (role === "teacher") {
+      roleTitle.textContent = "Teacher Login";
+      roleDesc.textContent = "Login to manage your student appointments.";
+    } else if (role === "admin") {
+      roleTitle.textContent = "Admin Login";
+      roleDesc.textContent = "Access the admin dashboard to manage users and appointments.";
+    } else {
+      roleTitle.textContent = "Student Login";
+      roleDesc.textContent = "Login to book appointments with teachers.";
+    }
+
+    // Update Register link to preserve role
+    registerLink.href = `register.html?role=${role}`;
+
+    // Update Back to Home link (optional role persistence)
+    homeLink.href = `index.html`;
+
+    // Optional: Update forgot password link to include role param for better UX
+    document.getElementById("forgotLink").addEventListener("click", (e) => {
+      e.preventDefault();
+      const email = document.getElementById("loginEmail").value.trim();
+      if (!email) {
+        alert("Enter your email in the field first, then click 'Forgot password?'");
+        return;
+      }
+      auth.sendPasswordResetEmail(email)
+        .then(() => alert("Password reset email sent. Check your inbox."))
+        .catch((err) => alert(err.message));
+    });
+  </script>
+
+  <style>
+    .centered {
+      display: flex;
+      min-height: 80vh;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .card {
+      width: 320px;
+      background: #fff;
+      padding: 18px;
+      border-radius: 10px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    }
+    .card h2 {
+      margin: 0 0 8px;
+      text-align: center;
+    }
+    .card p {
+      text-align: center;
+      font-size: 14px;
+      color: #555;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      box-sizing: border-box;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      background: #3498db;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    button:hover {
+      background: #2980b9;
+    }
+    a {
+      color: #3498db;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</body>
+</html>
